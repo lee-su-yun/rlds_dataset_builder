@@ -110,8 +110,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
             # load raw data --> this should change for your dataset
             #data = np.load(episode_path, allow_pickle=True)     # this is a list of dicts in our case
 
-            with open(episode_path, "rb") as f:
-                data = pickle.load(f)
+            data = dict(np.load(episode_path, allow_pickle=True))
             print('success')
             exit()
             # assemble episode --> here we're assuming demos so we set reward to 1 at the end
