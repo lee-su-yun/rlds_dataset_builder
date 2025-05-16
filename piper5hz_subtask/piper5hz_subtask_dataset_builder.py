@@ -108,11 +108,12 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
 
         def _parse_example(episode_path):
             # load raw data --> this should change for your dataset
-            data = np.load(episode_path, allow_pickle=True)     # this is a list of dicts in our case
+            #data = np.load(episode_path, allow_pickle=True)     # this is a list of dicts in our case
 
-        #    with open(episode_path, "rb") as f:
-        #        data = pickle.load(f)
-
+            with open(episode_path, "rb") as f:
+               data = pickle.load(f)
+            print('good')
+            exit()
             # assemble episode --> here we're assuming demos so we set reward to 1 at the end
             episode = []
             #for i in range(len(data['index'])):
