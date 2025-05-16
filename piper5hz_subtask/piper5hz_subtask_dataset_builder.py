@@ -97,7 +97,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
     def _split_generators(self, dl_manager: tfds.download.DownloadManager):
         """Define data splits."""
         return {
-            'train': self._generate_examples(path='/sdb1/piper_subtask_data/pick/'),
+            'train': self._generate_examples(path='/sdb1/piper_subtask_data/train/pick/Pick the blue plastic cup in the center.'),
             # 'val': self._generate_examples(path='/sdb1/piper_5hz/validation'),
 
         }
