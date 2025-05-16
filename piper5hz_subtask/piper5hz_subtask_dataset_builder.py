@@ -148,6 +148,8 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
             return episode_path, sample
 
         # create list of all examples
+        print(f"{path}")
+        exit()
         episode_paths = glob.glob(f"{path}/*/episode.pickle")
         #episode_paths = episode_paths[:20]
 
