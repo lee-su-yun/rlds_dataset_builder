@@ -121,13 +121,16 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
                 ep =episode_path.split('/')[-2]
                 # img = Image.open(f'{path}/{ep}/exo/color_img_{6*i}.jpeg')
                 # img2 = Image.open(f'{path}/{ep}/wrist/color_img_{6*i}.jpeg')
+                for k, v in data.items():
+                  print(f"{k}: type={type(v)}, dtype={getattr(v, 'dtype', None)}")
+                exit()
 
                 print(data['observation.images.table'].shape)
                 print(data['observation.images.wrist'].shape)
                 print(data['state'].shape)
                 print(data['action'].shape)
                 print(data['index'].shape)
-                exit()
+
 
                 episode.append({
                     'observation': {
