@@ -5,6 +5,7 @@ import numpy as np
 import tensorflow as tf
 import tensorflow_datasets as tfds
 import tensorflow_hub as hub
+import pickle
 
 
 class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
@@ -107,7 +108,10 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
 
         def _parse_example(episode_path):
             # load raw data --> this should change for your dataset
-            data = np.load(episode_path, allow_pickle=True)     # this is a list of dicts in our case
+            #data = np.load(episode_path, allow_pickle=True)     # this is a list of dicts in our case
+
+            with open(episode_path, "rb") as f:
+                data = pickle.load(f)
 
             # assemble episode --> here we're assuming demos so we set reward to 1 at the end
             episode = []
