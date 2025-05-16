@@ -153,7 +153,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
 
         # create list of all examples
 
-        episode_paths = glob.glob(f"{path}/*/episode.pickle")
+        episode_paths = glob.glob(f"{path}/*/episode.npz")
         #episode_paths = episode_paths[:20]
 
         # for smallish datasets, use single-thread parsing
