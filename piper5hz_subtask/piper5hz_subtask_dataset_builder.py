@@ -148,7 +148,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
                 'steps': episode,
                 'episode_metadata': {
                     'file_path': episode_path,
-                    'episode_id': str(data['episode_id']),
+                    'episode_id': str(data['episode_index']),
                 }
             }
 
