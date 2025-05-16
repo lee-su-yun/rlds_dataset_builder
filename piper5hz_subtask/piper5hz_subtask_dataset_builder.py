@@ -112,7 +112,8 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
 
             with open(episode_path, "rb") as f:
                 data = pickle.load(f)
-
+            print('success')
+            exit()
             # assemble episode --> here we're assuming demos so we set reward to 1 at the end
             episode = []
             #for i in range(len(data['index'])):
