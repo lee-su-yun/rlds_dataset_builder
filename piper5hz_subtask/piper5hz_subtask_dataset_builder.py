@@ -122,7 +122,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
                 # img = Image.open(f'{path}/{ep}/exo/color_img_{6*i}.jpeg')
                 # img2 = Image.open(f'{path}/{ep}/wrist/color_img_{6*i}.jpeg')
                 for k, v in data.items():
-                  print(f"{k}: type={type(v)}, shape = {v.shape} dtype={getattr(v, 'dtype', None)}")
+                  print(f"{k}: type={type(v)}, shape = {v.shape}")# dtype={getattr(v, 'dtype', None)}")
                 exit()
 
                 print(data['observation.images.table'].shape)
