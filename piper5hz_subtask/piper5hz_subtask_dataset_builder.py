@@ -10,10 +10,10 @@ import tensorflow_hub as hub
 class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
     """DatasetBuilder for example dataset."""
 
-    VERSION = tfds.core.Version('3.0.0')
+    VERSION = tfds.core.Version('2.0.0')
     RELEASE_NOTES = {
       '1.0.0': 'Initial release.',
-      '2.0.0': 'instruction test',
+      '2.0.0': 'Validation',
       '2.5.0': 'Add Instruct(fine-tuning)',
       '3.0.0': '',
 
@@ -95,7 +95,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
     def _split_generators(self, dl_manager: tfds.download.DownloadManager):
         """Define data splits."""
         return {
-            'train': self._generate_examples(path='/sdb1/piper_subtask_data/train/pick/'),
+            'train': self._generate_examples(path='/sdb1/piper_subtask_data/eval/pick/Validation'),
             # 'val': self._generate_examples(path='/sdb1/piper_5hz/validation'),
 
         }
