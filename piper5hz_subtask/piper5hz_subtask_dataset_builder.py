@@ -109,7 +109,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
             episode = []
             instruction = episode_path.split("/")[-3].replace("_", " ").capitalize()
             language_embedding = self._embed([instruction])[0].numpy()
-            test = []
+            print(instruction)
             # assemble episode --> here we're assuming demos so we set reward to 1 at the end
             episode = []
             for i in [0]:#range(0, len(data['index']), 6):
@@ -123,7 +123,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
                 # print(data['observation.images.table'].shape)
                 # print(data['action'].shape)
                 # exit()
-                test.append(instruction)
+
                 episode.append({
                     'observation': {
                         'image': data['observation.images.table'][i][0],
