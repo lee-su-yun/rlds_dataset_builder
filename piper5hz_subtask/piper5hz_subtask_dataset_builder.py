@@ -125,8 +125,8 @@ class Piper5HZ(tfds.core.GeneratorBasedBuilder):
 
                 episode.append({
                     'observation': {
-                        'image': data['observation.images.table'][i],
-                        'wrist_image': data['observation.images.wrist'][i],
+                        'image': data['observation.images.table'][i][0],
+                        'wrist_image': data['observation.images.wrist'][i][0],
                         'state': data['observation.state'][i][0]
                     },
                     'action': data['action'][i][0],
