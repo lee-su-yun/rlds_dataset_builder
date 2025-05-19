@@ -10,10 +10,11 @@ import tensorflow_hub as hub
 class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
     """DatasetBuilder for example dataset."""
 
-    VERSION = tfds.core.Version('2.0.0')
+    VERSION = tfds.core.Version('2.5.0')
     RELEASE_NOTES = {
       '1.0.0': 'Initial release.',
       '2.0.0': 'train',
+      '2.5.0': 'Add Instruct',
 
     }
 
