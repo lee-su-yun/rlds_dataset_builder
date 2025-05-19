@@ -112,7 +112,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
             test = []
             # assemble episode --> here we're assuming demos so we set reward to 1 at the end
             episode = []
-            for i in [0,1]:#range(0, len(data['index']), 6):
+            for i in [0]:#range(0, len(data['index']), 6):
                 # compute Kona language embedding
                 #language_embedding = self._embed(['Pick the cup'])[0].numpy()
                 ep =episode_path.split('/')[-2]
