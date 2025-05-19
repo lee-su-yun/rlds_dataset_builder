@@ -116,7 +116,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
             episode = []
             for i in range(0, len(data['index']), 6):
                 # compute Kona language embedding
-                language_embedding = self._embed(['Pick the cup'])[0].numpy()
+                #language_embedding = self._embed(['Pick the cup'])[0].numpy()
                 ep =episode_path.split('/')[-2]
                 # img = Image.open(f'{path}/{ep}/exo/color_img_{6*i}.jpeg')
                 # img2 = Image.open(f'{path}/{ep}/wrist/color_img_{6*i}.jpeg')
