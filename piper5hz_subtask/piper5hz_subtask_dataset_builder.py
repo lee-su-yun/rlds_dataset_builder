@@ -10,7 +10,7 @@ import tensorflow_hub as hub
 class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
     """DatasetBuilder for example dataset."""
 
-    VERSION = tfds.core.Version('2.5.0')
+    VERSION = tfds.core.Version('2.0.0')
     RELEASE_NOTES = {
       '1.0.0': 'Initial release.',
       '2.0.0': 'train',
@@ -109,10 +109,10 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
             episode = []
             instruction = episode_path.split("/")[-3].replace("_", " ").capitalize()
             language_embedding = self._embed([instruction])[0].numpy()
-
+            test = []
             # assemble episode --> here we're assuming demos so we set reward to 1 at the end
             episode = []
-            for i in range(0, len(data['index']), 6):
+            for i in [0,1]:#range(0, len(data['index']), 6):
                 # compute Kona language embedding
                 #language_embedding = self._embed(['Pick the cup'])[0].numpy()
                 ep =episode_path.split('/')[-2]
@@ -123,7 +123,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
                 # print(data['observation.images.table'].shape)
                 # print(data['action'].shape)
                 # exit()
-
+                test.append(instruction)
                 episode.append({
                     'observation': {
                         'image': data['observation.images.table'][i][0],
