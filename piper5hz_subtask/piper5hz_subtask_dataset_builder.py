@@ -108,8 +108,6 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
 
             episode = []
             instruction = episode_path.split("/")[-3].replace("_", " ").capitalize()
-            print(instruction)
-            exit()
             language_embedding = self._embed([instruction])[0].numpy()
 
             # assemble episode --> here we're assuming demos so we set reward to 1 at the end
