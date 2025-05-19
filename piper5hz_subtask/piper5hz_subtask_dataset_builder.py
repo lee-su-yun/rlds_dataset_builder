@@ -7,10 +7,10 @@ import tensorflow_datasets as tfds
 import tensorflow_hub as hub
 
 
-class Piper5HZ(tfds.core.GeneratorBasedBuilder):
+class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
     """DatasetBuilder for example dataset."""
 
-    VERSION = tfds.core.Version('3.5.0')
+    VERSION = tfds.core.Version('1.0.0')
     RELEASE_NOTES = {
       '1.0.0': 'Initial release.',
       '1.5.0': '5hz.',
@@ -111,7 +111,7 @@ class Piper5HZ(tfds.core.GeneratorBasedBuilder):
 
             # assemble episode --> here we're assuming demos so we set reward to 1 at the end
             episode = []
-            for i in range(len(data['index'])):
+            for i in range(0, len(data['index']), 6):
                 # compute Kona language embedding
                 language_embedding = self._embed(['Pick the cup'])[0].numpy()
                 ep =episode_path.split('/')[-2]
