@@ -10,11 +10,12 @@ import tensorflow_hub as hub
 class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
     """DatasetBuilder for example dataset."""
 
-    VERSION = tfds.core.Version('2.0.0')
+    VERSION = tfds.core.Version('3.0.0')
     RELEASE_NOTES = {
       '1.0.0': 'Initial release.',
       '2.0.0': 'instruction test',
-      '2.5.0': 'Add Instruct',
+      '2.5.0': 'Add Instruct(fine-tuning)',
+      '3.0.0': '',
 
     }
 
@@ -109,7 +110,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
             episode = []
             instruction = episode_path.split("/")[-3].replace("_", " ").capitalize()
             language_embedding = self._embed([instruction])[0].numpy()
-            print(instruction)
+
             # assemble episode --> here we're assuming demos so we set reward to 1 at the end
             episode = []
             for i in [0]:#range(0, len(data['index']), 6):
