@@ -117,17 +117,17 @@ class Piper5HZ(tfds.core.GeneratorBasedBuilder):
                 ep =episode_path.split('/')[-2]
                 # img = Image.open(f'{path}/{ep}/exo/color_img_{6*i}.jpeg')
                 # img2 = Image.open(f'{path}/{ep}/wrist/color_img_{6*i}.jpeg')
-                print(data.keys())
-                print(data['observation.state'].shape)
-                print(data['observation.images.table'].shape)
-                print(data['action'].shape)
-                exit()
+                # print(data.keys())
+                # print(data['observation.state'].shape)
+                # print(data['observation.images.table'].shape)
+                # print(data['action'].shape)
+                # exit()
 
                 episode.append({
                     'observation': {
                         'image': data['observation.images.table'][i],
                         'wrist_image': data['observation.images.wrist'][i],
-                        'state': data['state'][i][0]
+                        'state': data['observation.state'][i][0]
                     },
                     'action': data['action'][i][0],
                     'discount': 1.0,
