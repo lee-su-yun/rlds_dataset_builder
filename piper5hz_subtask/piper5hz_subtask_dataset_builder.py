@@ -5,20 +5,19 @@ import numpy as np
 import tensorflow as tf
 import tensorflow_datasets as tfds
 import tensorflow_hub as hub
-import pickle
 
 
-class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
+class Piper5HZ(tfds.core.GeneratorBasedBuilder):
     """DatasetBuilder for example dataset."""
 
-    VERSION = tfds.core.Version('1.0.0')
+    VERSION = tfds.core.Version('3.5.0')
     RELEASE_NOTES = {
-      '1.0.0': 'Initial release (one scenario)',
-      '1.5.0': 'additional release',
-      '2.0.0': ' ',
+      '1.0.0': 'Initial release.',
+      '1.5.0': '5hz.',
+      '2.0.0': 'train',
       '2.5.0': 'episode_id',
-      '3.0.0': 'add dataset',
-      '3.5.0': '20 episodes'
+        '3.0.0': 'add dataset',
+        '3.5.0': '20 episodes'
 
     }
 
@@ -76,7 +75,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
                         doc='True on last step of the episode if it is a terminal step, True for demos.'
                     ),
                     'language_instruction': tfds.features.Text(
-                        doc='Align cups.'
+                        doc='Pick cups.'
                     ),
                     'language_embedding': tfds.features.Tensor(
                         shape=(512,),
@@ -87,7 +86,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
                 }),
                 'episode_metadata': tfds.features.FeaturesDict({
                     'file_path': tfds.features.Text(
-                        doc='/sdb1/piper_subtask_data/train/pick'
+                        doc='/sdb1/piper_5hz/train'
                     ),
                     'episode_id': tfds.features.Text(
                         doc='episode_id'
@@ -98,10 +97,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
     def _split_generators(self, dl_manager: tfds.download.DownloadManager):
         """Define data splits."""
         return {
-            #'train': self._generate_examples(path='/sdb1/piper_subtask_data/train/pick/Pick the blue plastic cup in the center./downnp'),
-            'train': self._generate_examples(
-                path='/ sdb1 / piper_5hz / train / Align_the_cups /'),
-
+            'train': self._generate_examples(path='/sdb1/piper_subtask_data/train/pick/Pick the blue plastic cup in the center.'),
             # 'val': self._generate_examples(path='/sdb1/piper_5hz/validation'),
 
         }
@@ -111,30 +107,22 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
 
         def _parse_example(episode_path):
             # load raw data --> this should change for your dataset
-            #data = np.load(episode_path, allow_pickle=True)     # this is a list of dicts in our case
-
-            data = dict(np.load(episode_path, allow_pickle=False))
+            data = np.load(episode_path, allow_pickle=True)     # this is a list of dicts in our case
 
             # assemble episode --> here we're assuming demos so we set reward to 1 at the end
             episode = []
-            #for i in range(len(data['index'])):
-            for i in range(0, len(data['index']), 6): # for downsampling : 30Hz -> 5Hz
+            for i in range(len(data['index'])):
                 # compute Kona language embedding
-                language_embedding = self._embed(['Pick'])[0].numpy()
+                language_embedding = self._embed(['Pick the cup'])[0].numpy()
                 ep =episode_path.split('/')[-2]
                 # img = Image.open(f'{path}/{ep}/exo/color_img_{6*i}.jpeg')
                 # img2 = Image.open(f'{path}/{ep}/wrist/color_img_{6*i}.jpeg')
-                # for k, v in data.items():
-                #   print(f"{k}: type={type(v)}, shape = {v.shape}")# dtype={getattr(v, 'dtype', None)}")
-                # exit()
-
 
                 episode.append({
                     'observation': {
                         'image': data['observation.images.table'][i],
                         'wrist_image': data['observation.images.wrist'][i],
-                        #'state': data['state'][i][0]
-                        'state': data['observation.state'][i][0]
+                        'state': data['state'][i][0]
                     },
                     'action': data['action'][i][0],
                     'discount': 1.0,
@@ -142,7 +130,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
                     'is_first': i == 0,
                     'is_last': i == (len(data['index']) - 1),
                     'is_terminal': i == (len(data['index']) - 1),
-                    'language_instruction': 'Pick.',
+                    'language_instruction': 'Pick the cup.',
                     'language_embedding': language_embedding,
                 })
 
@@ -151,7 +139,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
                 'steps': episode,
                 'episode_metadata': {
                     'file_path': episode_path,
-                    'episode_id': str(data['episode_index']),
+                    'episode_id': str(data['episode_id']),
                 }
             }
 
@@ -159,8 +147,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
             return episode_path, sample
 
         # create list of all examples
-
-        episode_paths = glob.glob(f"{path}/*/episode.npz")
+        episode_paths = glob.glob(f"{path}/*/episode.pickle")
         #episode_paths = episode_paths[:20]
 
         # for smallish datasets, use single-thread parsing
@@ -173,4 +160,6 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
         #         beam.Create(episode_paths)
         #         | beam.Map(_parse_example)
         # )
+
+
 
