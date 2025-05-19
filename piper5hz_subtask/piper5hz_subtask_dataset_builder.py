@@ -117,7 +117,8 @@ class Piper5HZ(tfds.core.GeneratorBasedBuilder):
                 ep =episode_path.split('/')[-2]
                 # img = Image.open(f'{path}/{ep}/exo/color_img_{6*i}.jpeg')
                 # img2 = Image.open(f'{path}/{ep}/wrist/color_img_{6*i}.jpeg')
-                print(data['state'].shape)
+                print(data.keys())
+                print(data['observation.state'].shape)
                 print(data['observation.images.table'].shape)
                 print(data['action'].shape)
                 exit()
