@@ -10,12 +10,12 @@ import tensorflow_hub as hub
 class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
     """DatasetBuilder for example dataset."""
 
-    VERSION = tfds.core.Version('2.0.0')
+    VERSION = tfds.core.Version('3.0.0')
     RELEASE_NOTES = {
       '1.0.0': 'Initial release.',
       '2.0.0': 'Validation',
       '2.5.0': 'Add Instruct(fine-tuning)',
-      '3.0.0': '',
+      '3.0.0': 'Added Validation',
 
     }
 
@@ -95,7 +95,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
     def _split_generators(self, dl_manager: tfds.download.DownloadManager):
         """Define data splits."""
         return {
-            'train': self._generate_examples(path='/sdb1/piper_subtask_data/eval/pick/Validation'),
+            'train': self._generate_examples(path='/sdb1/piper_subtask_data/eval/pick/Validation_add'),
             # 'val': self._generate_examples(path='/sdb1/piper_5hz/validation'),
 
         }
@@ -154,7 +154,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
             return episode_path, sample
 
         # create list of all examples
-        episode_paths = glob.glob(f"{path}/*/episode.pickle")
+        episode_paths = glob.glob(f"{path}/*/*/episode.pickle")
         #episode_paths = episode_paths[:20]
 
         # for smallish datasets, use single-thread parsing
