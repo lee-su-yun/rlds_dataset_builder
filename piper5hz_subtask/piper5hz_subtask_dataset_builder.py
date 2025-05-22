@@ -10,12 +10,13 @@ import tensorflow_hub as hub
 class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
     """DatasetBuilder for example dataset."""
 
-    VERSION = tfds.core.Version('3.0.0')
+    VERSION = tfds.core.Version('4.0.0')
     RELEASE_NOTES = {
       '1.0.0': 'Initial release.',
       '2.0.0': 'Validation',
       '2.5.0': 'Add Instruct(fine-tuning)',
       '3.0.0': 'Added Validation',
+      '4.0.0': 'Test',
 
     }
 
@@ -119,11 +120,11 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
                 ep =episode_path.split('/')[-2]
                 # img = Image.open(f'{path}/{ep}/exo/color_img_{6*i}.jpeg')
                 # img2 = Image.open(f'{path}/{ep}/wrist/color_img_{6*i}.jpeg')
-                # print(data.keys())
+                print(data.keys())
                 # print(data['observation.state'].shape)
                 # print(data['observation.images.table'].shape)
                 # print(data['action'].shape)
-                # exit()
+                exit()
 
                 episode.append({
                     'observation': {
