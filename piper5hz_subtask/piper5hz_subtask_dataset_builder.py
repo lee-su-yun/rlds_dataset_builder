@@ -10,13 +10,13 @@ import tensorflow_hub as hub
 class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
     """DatasetBuilder for example dataset."""
 
-    VERSION = tfds.core.Version('4.0.0')
+    VERSION = tfds.core.Version('3.0.0')
     RELEASE_NOTES = {
       '1.0.0': 'Initial release.',
       '2.0.0': 'Validation',
       '2.5.0': 'Add Instruct(fine-tuning)',
-      '3.0.0': 'Added Validation',
-      '4.0.0': 'Test',
+      '3.0.0': 'Change side-view into Top-View',
+      '4.0.0': '',
 
     }
 
@@ -96,7 +96,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
     def _split_generators(self, dl_manager: tfds.download.DownloadManager):
         """Define data splits."""
         return {
-            'train': self._generate_examples(path='/sdb1/piper_subtask_data/eval/pick/Validation_add'),
+            'train': self._generate_examples(path='/sdb1/piper_subtask_data/train/pic'),
             # 'val': self._generate_examples(path='/sdb1/piper_5hz/validation'),
 
         }
@@ -120,15 +120,13 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
                 ep =episode_path.split('/')[-2]
                 # img = Image.open(f'{path}/{ep}/exo/color_img_{6*i}.jpeg')
                 # img2 = Image.open(f'{path}/{ep}/wrist/color_img_{6*i}.jpeg')
-                print(data.keys())
                 # print(data['observation.state'].shape)
                 # print(data['observation.images.table'].shape)
                 # print(data['action'].shape)
-                exit()
 
                 episode.append({
                     'observation': {
-                        'image': data['observation.images.table'][i][0],
+                        'image': data['observation.images.exo'][i][0],
                         'wrist_image': data['observation.images.wrist'][i][0],
                         'state': data['observation.state'][i][0]
                     },
