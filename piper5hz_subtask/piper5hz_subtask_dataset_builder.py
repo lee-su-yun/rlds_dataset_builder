@@ -10,13 +10,14 @@ import tensorflow_hub as hub
 class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
     """DatasetBuilder for example dataset."""
 
-    VERSION = tfds.core.Version('4.0.0')
+    VERSION = tfds.core.Version('4.5.0')
     RELEASE_NOTES = {
       '1.0.0': 'Initial release.',
       '2.0.0': 'Validation',
       '2.5.0': 'Add Instruct(fine-tuning)',
       '3.0.0': 'Add validation episodes',
-      '4.0.0': 'Change side-view into Top-View',
+      '4.0.0': 'Change side-view into Top-View(train)',
+      '4.5.0': 'Change instruction (remove plastic) (train) + remove first 5 frames(5Hz)',
 
     }
 
@@ -114,7 +115,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
 
             # assemble episode --> here we're assuming demos so we set reward to 1 at the end
             episode = []
-            for i in range(0, len(data['index']), 6):
+            for i in range(30, len(data['index']), 6):
                 # compute Kona language embedding
                 #language_embedding = self._embed(['Pick the cup'])[0].numpy()
                 ep =episode_path.split('/')[-2]
