@@ -18,7 +18,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
       '3.0.0': 'Add validation episodes',
       '4.0.0': 'Change side-view into Top-View(train)',
       '4.5.0': 'Change instruction (remove plastic) (train) + remove first 5 frames(5Hz)',
-      '5.0.0': 'Add three views + RGB change'
+      '5.0.0': 'Table views + RGB change'
 
     }
 
@@ -125,19 +125,19 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
                 # print(data['observation.state'].shape)
                 # print(data['observation.images.table'].shape)
                 # print(data['action'].shape)
-                img_exo = np.array(data['observation.images.exo'][i][0])
-                img_wrist = np.array(data['observation.images.wrist'][i][0])
+                # img_exo = np.array(data['observation.images.exo'][i][0])
+                # img_wrist = np.array(data['observation.images.wrist'][i][0])
                 img_table = np.array(data['observation.images.table'][i][0])
-                img_exo = img_exo[...,::-1]
-                img_wrist = img_wrist[...,::-1]
+                # img_exo = img_exo[...,::-1]
+                # img_wrist = img_wrist[...,::-1]
                 img_table = img_table[...,::-1]
 
 
                 episode.append({
                     'observation': {
-                        'exo_image': img_exo,
-                        'wrist_image': img_wrist,
-                        'table_image': img_table,
+                        # 'exo_image': img_exo,
+                        # 'wrist_image': img_wrist,
+                        'image': img_table,
                         'state': data['observation.state'][i][0]
                     },
                     'action': data['action'][i][0],
