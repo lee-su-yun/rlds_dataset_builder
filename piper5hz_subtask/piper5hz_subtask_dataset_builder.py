@@ -10,7 +10,7 @@ import tensorflow_hub as hub
 class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
     """DatasetBuilder for example dataset."""
 
-    VERSION = tfds.core.Version('4.5.0')
+    VERSION = tfds.core.Version('5.0.0')
     RELEASE_NOTES = {
       '1.0.0': 'Initial release.',
       '2.0.0': 'Validation',
@@ -18,6 +18,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
       '3.0.0': 'Add validation episodes',
       '4.0.0': 'Change side-view into Top-View(train)',
       '4.5.0': 'Change instruction (remove plastic) (train) + remove first 5 frames(5Hz)',
+      '5.0.0': 'Add three views + RGB change'
 
     }
 
