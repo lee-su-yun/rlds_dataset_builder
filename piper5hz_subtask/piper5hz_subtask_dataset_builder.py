@@ -10,7 +10,7 @@ import tensorflow_hub as hub
 class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
     """DatasetBuilder for example dataset."""
 
-    VERSION = tfds.core.Version('5.0.0')
+    VERSION = tfds.core.Version('5.5.0')
     RELEASE_NOTES = {
       '1.0.0': 'Initial release.',
       '2.0.0': 'Validation',
@@ -18,7 +18,8 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
       '3.0.0': 'Add validation episodes',
       '4.0.0': 'Change side-view into Top-View(train)',
       '4.5.0': 'Change instruction (remove plastic) (train) + remove first 5 frames(5Hz)',
-      '5.0.0': 'Table views + RGB change'
+      '5.0.0': '4.5.0 + Table views + RGB change (train)',
+      '5.5.0': 'Table views + RGB change + remove first 5 frames(5Hz) + Change instruction (Validation)',
 
     }
 
@@ -87,7 +88,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
                 }),
                 'episode_metadata': tfds.features.FeaturesDict({
                     'file_path': tfds.features.Text(
-                        doc='/sdb1/piper_5hz_subtask/train/pick'
+                        doc='/sdb1/piper_5hz_subtask/eval/pick'
                     ),
                     'episode_id': tfds.features.Text(
                         doc='episode_id'
@@ -98,7 +99,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
     def _split_generators(self, dl_manager: tfds.download.DownloadManager):
         """Define data splits."""
         return {
-            'train': self._generate_examples(path='/sdb1/piper_subtask_data/train/pick'),
+            'train': self._generate_examples(path='/sdb1/piper_subtask_data/eval/pick/Validation_add'),
             # 'val': self._generate_examples(path='/sdb1/piper_5hz/validation'),
 
         }
