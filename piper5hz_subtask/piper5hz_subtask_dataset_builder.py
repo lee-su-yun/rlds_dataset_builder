@@ -77,7 +77,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
                         doc='True on last step of the episode if it is a terminal step, True for demos.'
                     ),
                     'language_instruction': tfds.features.Text(
-                        doc='Pick cups.'
+                        doc='pick the grape and put it to the basket'
                     ),
                     'language_embedding': tfds.features.Tensor(
                         shape=(512,),
@@ -123,8 +123,8 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
             for i in range(0, len(data['frame_index']), 6):
                 # compute Kona language embedding
 
-                img_wrist = np.array(data['observation.images.wrist'][i][0])
-                img_table = np.array(data['observation.images.table'][i][0])
+                # img_wrist = np.array(data['observation.images.wrist'][i][0])
+                # img_table = np.array(data['observation.images.table'][i][0])
 
 
 
