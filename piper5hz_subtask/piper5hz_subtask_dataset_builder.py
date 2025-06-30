@@ -5,7 +5,7 @@ import numpy as np
 import tensorflow as tf
 import tensorflow_datasets as tfds
 import tensorflow_hub as hub
-
+import cv2
 
 class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
     """DatasetBuilder for example dataset."""
@@ -99,7 +99,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
     def _split_generators(self, dl_manager: tfds.download.DownloadManager):
         """Define data splits."""
         return {
-            'train': self._generate_examples(path='/sdc1/piper_grape0627/pick the grape and put it to the basket'),
+            'train': self._generate_examples(path='/sdb1/piper_grape0626/pick the grape and put it to the basket'),
             # 'val': self._generate_examples(path='/sdb1/piper_5hz/validation'),
 
         }
@@ -111,6 +111,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
             # load raw data --> this should change for your dataset
             print(episode_path)
             data = np.load(episode_path, allow_pickle=True)     # this is a list of dicts in our case
+
             # print(data.keys())
             # print(data['frame_index'])
             # print(data['episode_index'])
@@ -128,13 +129,13 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
                 # img_wrist = np.array(data['observation.images.wrist'][i][0])
                 # img_table = np.array(data['observation.images.table'][i][0])
 
-
+                decoded_img = cv2.imdecode(data['observation.images.table'], cv2.IMREAD_COLOR)
 
                 episode.append({
                     'observation': {
                         # 'exo_image': img_exo,
-                        'image': data['observation.images.table'][i][0],
-                        'wrist_image': data['observation.images.wrist'][i][0],
+                        'image': cv2.imdecode(np.asarray(data['observation.images.table'][i], dtype=np.uint8), cv2.IMREAD_COLOR) if data['episode_index'] >= 80 else data['observation.images.table'][i][0],
+                        'wrist_image': cv2.imdecode(np.asarray(data['observation.images.wrist'][i], dtype=np.uint8), cv2.IMREAD_COLOR) if data['episode_index'] >= 80 else data['observation.images.wrist'][i][0],
                         'state': data['observation.state'][i][0]
                     },
                     'action': data['action'][i][0],
