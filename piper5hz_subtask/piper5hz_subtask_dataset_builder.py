@@ -113,7 +113,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
             # print(data.keys())
             # print(data['frame_index'])
             # print(data['episode_index'])
-            print(data['observation.images.table'].shape)
+            print(data['observation.images.table'])
             exit()
             # exit()
             instruction = 'pick the grape and put it to the basket'
