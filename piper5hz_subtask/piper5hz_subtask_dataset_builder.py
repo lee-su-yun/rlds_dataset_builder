@@ -10,7 +10,7 @@ import cv2
 class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
     """DatasetBuilder for example dataset."""
 
-    VERSION = tfds.core.Version('6.0.0')
+    VERSION = tfds.core.Version('6.1.0')
     RELEASE_NOTES = {
       '1.0.0': 'Initial release.',
       '2.0.0': 'Validation',
@@ -20,7 +20,8 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
       '4.5.0': 'Change instruction (remove plastic) (train) + remove first 5 frames(5Hz)',
       '5.0.0': '4.5.0 + Table views + RGB change (train)',
       '5.5.0': 'Table views + RGB change + remove first 5 frames(5Hz) + Change instruction (Validation)',
-      '6.0.0': 'Pick the grape and put it in the basket. training dataset (5hz, table, wrist view)'
+      '6.0.0': 'Pick the grape and put it in the basket. training dataset (5hz, table, wrist view),
+      '6.1.0': 'Pick the grape and put it in the basket. training dataset (5hz, table, wrist view)
     }
 
     def __init__(self, *args, **kwargs):
