@@ -109,12 +109,13 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
 
         def _parse_example(episode_path):
             # load raw data --> this should change for your dataset
+            print(episode_path)
             data = np.load(episode_path, allow_pickle=True)     # this is a list of dicts in our case
             # print(data.keys())
             # print(data['frame_index'])
             # print(data['episode_index'])
-            print(len(data['observation.images.table'][0]))
-            exit()
+            # print(len(data['observation.images.table'][0]))
+            # exit()
             # exit()
             instruction = 'pick the grape and put it to the basket'
             language_embedding = self._embed([instruction])[0].numpy()
