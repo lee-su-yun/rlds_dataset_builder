@@ -10,7 +10,7 @@ import tensorflow_hub as hub
 class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
     """DatasetBuilder for example dataset."""
 
-    VERSION = tfds.core.Version('5.5.0')
+    VERSION = tfds.core.Version('6.0.0')
     RELEASE_NOTES = {
       '1.0.0': 'Initial release.',
       '2.0.0': 'Validation',
@@ -20,7 +20,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
       '4.5.0': 'Change instruction (remove plastic) (train) + remove first 5 frames(5Hz)',
       '5.0.0': '4.5.0 + Table views + RGB change (train)',
       '5.5.0': 'Table views + RGB change + remove first 5 frames(5Hz) + Change instruction (Validation)',
-
+      '6.0.0': 'Pick the grape and put it in the basket. training dataset (5hz, table, wrist view)'
     }
 
     def __init__(self, *args, **kwargs):
@@ -88,7 +88,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
                 }),
                 'episode_metadata': tfds.features.FeaturesDict({
                     'file_path': tfds.features.Text(
-                        doc='/sdb1/piper_5hz_subtask/eval/pick'
+                        doc='/sdc1/piper_grape0627/pick the grape and put it to the basket'
                     ),
                     'episode_id': tfds.features.Text(
                         doc='episode_id'
@@ -99,7 +99,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
     def _split_generators(self, dl_manager: tfds.download.DownloadManager):
         """Define data splits."""
         return {
-            'train': self._generate_examples(path='/sdb1/piper_subtask_data/eval/pick/Validation_add'),
+            'train': self._generate_examples(path='/sdc1/piper_grape0627/pick the grape and put it to the basket'),
             # 'val': self._generate_examples(path='/sdb1/piper_5hz/validation'),
 
         }
@@ -111,34 +111,24 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
             # load raw data --> this should change for your dataset
             data = np.load(episode_path, allow_pickle=True)     # this is a list of dicts in our case
 
-            episode = []
-            instruction = episode_path.split("/")[-3].replace("_", " ").capitalize()
+            instruction = 'pick the grape and put it to the basket'
             language_embedding = self._embed([instruction])[0].numpy()
 
             # assemble episode --> here we're assuming demos so we set reward to 1 at the end
             episode = []
-            for i in range(30, len(data['index']), 6):
+            for i in range(0, len(data['index']), 6):
                 # compute Kona language embedding
-                #language_embedding = self._embed(['Pick the cup'])[0].numpy()
-                ep =episode_path.split('/')[-2]
-                # img = Image.open(f'{path}/{ep}/exo/color_img_{6*i}.jpeg')
-                # img2 = Image.open(f'{path}/{ep}/wrist/color_img_{6*i}.jpeg')
-                # print(data['observation.state'].shape)
-                # print(data['observation.images.table'].shape)
-                # print(data['action'].shape)
-                # img_exo = np.array(data['observation.images.exo'][i][0])
+
                 img_wrist = np.array(data['observation.images.wrist'][i][0])
                 img_table = np.array(data['observation.images.table'][i][0])
-                # img_exo = img_exo[...,::-1]
-                img_wrist = img_wrist[...,::-1]
-                img_table = img_table[...,::-1]
+
 
 
                 episode.append({
                     'observation': {
                         # 'exo_image': img_exo,
-                        'image': img_table,
-                        'wrist_image': img_wrist,
+                        'image': data['observation.images.table'][i][0],
+                        'wrist_image': data['observation.images.wrist'][i][0],
                         'state': data['observation.state'][i][0]
                     },
                     'action': data['action'][i][0],
@@ -164,7 +154,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
             return episode_path, sample
 
         # create list of all examples
-        episode_paths = glob.glob(f"{path}/*/*/episode.pickle")
+        episode_paths = glob.glob(f"{path}/*/episode.pickle")
         #episode_paths = episode_paths[:20]
 
         # for smallish datasets, use single-thread parsing
