@@ -131,7 +131,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
 
                 # decoded_img = cv2.imdecode(data['observation.images.table'], cv2.IMREAD_COLOR)
 
-                if data['episode_index'] >= 80:
+                if data['episode_index'].item() >= 80:
                     # image = np.asarray(data['observation.images.table'][i], dtype=np.uint8)
                     # wrist = np.asarray(data['observation.images.wrist'][i], dtype=np.uint8)
 
