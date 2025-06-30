@@ -111,13 +111,16 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
             # load raw data --> this should change for your dataset
             data = np.load(episode_path, allow_pickle=True)     # this is a list of dicts in our case
             print(data.keys())
+            print(data['frame_index'])
+            print(data['episode_index'])
+
             exit()
             instruction = 'pick the grape and put it to the basket'
             language_embedding = self._embed([instruction])[0].numpy()
 
             # assemble episode --> here we're assuming demos so we set reward to 1 at the end
             episode = []
-            for i in range(0, len(data['index']), 6):
+            for i in range(0, len(data['frame_index']), 6):
                 # compute Kona language embedding
 
                 img_wrist = np.array(data['observation.images.wrist'][i][0])
@@ -134,10 +137,10 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
                     },
                     'action': data['action'][i][0],
                     'discount': 1.0,
-                    'reward': float(i == (len(data['frame']) - 1)),
+                    'reward': float(i == (len(data['frame_index']) - 1)),
                     'is_first': i == 0,
-                    'is_last': i == (len(data['index']) - 1),
-                    'is_terminal': i == (len(data['index']) - 1),
+                    'is_last': i == (len(data['frame_index']) - 1),
+                    'is_terminal': i == (len(data['frame_index']) - 1),
                     'language_instruction': instruction,
                     'language_embedding': language_embedding,
                 })
