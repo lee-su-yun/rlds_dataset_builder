@@ -126,7 +126,8 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
                 # img_wrist = np.array(data['observation.images.wrist'][i][0])
                 # img_table = np.array(data['observation.images.table'][i][0])
 
-
+                print(data['observation.images.table'][i][0].shape)
+                exit()
 
                 episode.append({
                     'observation': {
