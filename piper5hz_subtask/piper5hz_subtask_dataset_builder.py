@@ -110,7 +110,8 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
         def _parse_example(episode_path):
             # load raw data --> this should change for your dataset
             data = np.load(episode_path, allow_pickle=True)     # this is a list of dicts in our case
-
+            print(data.keys())
+            exit()
             instruction = 'pick the grape and put it to the basket'
             language_embedding = self._embed([instruction])[0].numpy()
 
@@ -133,7 +134,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
                     },
                     'action': data['action'][i][0],
                     'discount': 1.0,
-                    'reward': float(i == (len(data['index']) - 1)),
+                    'reward': float(i == (len(data['frame']) - 1)),
                     'is_first': i == 0,
                     'is_last': i == (len(data['index']) - 1),
                     'is_terminal': i == (len(data['index']) - 1),
