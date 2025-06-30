@@ -131,11 +131,21 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
 
                 # decoded_img = cv2.imdecode(data['observation.images.table'], cv2.IMREAD_COLOR)
 
+                if data['episode_index'] >= 80:
+                    # image = np.asarray(data['observation.images.table'][i], dtype=np.uint8)
+                    # wrist = np.asarray(data['observation.images.wrist'][i], dtype=np.uint8)
+
+                    image = cv2.imdecode(data['observation.images.table'][i], cv2.IMREAD_COLOR)
+                    wrist_image = cv2.imdecode(data['observation.images.wrist'][i], cv2.IMREAD_COLOR)
+                else:
+                    image = data['observation.images.table'][i][0]
+                    wrist_image = data['observation.images.wrist'][i][0]
+
                 episode.append({
                     'observation': {
                         # 'exo_image': img_exo,
-                        'image': cv2.imdecode(np.asarray(data['observation.images.table'][i], dtype=np.uint8), cv2.IMREAD_COLOR) if data['episode_index'] >= 80 else data['observation.images.table'][i][0],
-                        'wrist_image': cv2.imdecode(np.asarray(data['observation.images.wrist'][i], dtype=np.uint8), cv2.IMREAD_COLOR) if data['episode_index'] >= 80 else data['observation.images.wrist'][i][0],
+                        'image': image,
+                        'wrist_image': wrist_image,
                         'state': data['observation.state'][i][0]
                     },
                     'action': data['action'][i][0],
