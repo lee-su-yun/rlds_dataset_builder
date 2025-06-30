@@ -113,7 +113,8 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
             # print(data.keys())
             # print(data['frame_index'])
             # print(data['episode_index'])
-            #
+            print(data['observation.images.table'][0][0].shape)
+            exit()
             # exit()
             instruction = 'pick the grape and put it to the basket'
             language_embedding = self._embed([instruction])[0].numpy()
@@ -126,8 +127,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
                 # img_wrist = np.array(data['observation.images.wrist'][i][0])
                 # img_table = np.array(data['observation.images.table'][i][0])
 
-                print(data['observation.images.table'][i][0].shape)
-                exit()
+
 
                 episode.append({
                     'observation': {
