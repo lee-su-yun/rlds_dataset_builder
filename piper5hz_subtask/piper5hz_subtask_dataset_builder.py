@@ -109,7 +109,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
 
         def _parse_example(episode_path):
             # load raw data --> this should change for your dataset
-            print(episode_path)
+            # print(episode_path)
             data = np.load(episode_path, allow_pickle=True)     # this is a list of dicts in our case
 
             # print(data.keys())
@@ -129,7 +129,7 @@ class Piper5HZ_subtask(tfds.core.GeneratorBasedBuilder):
                 # img_wrist = np.array(data['observation.images.wrist'][i][0])
                 # img_table = np.array(data['observation.images.table'][i][0])
 
-                decoded_img = cv2.imdecode(data['observation.images.table'], cv2.IMREAD_COLOR)
+                # decoded_img = cv2.imdecode(data['observation.images.table'], cv2.IMREAD_COLOR)
 
                 episode.append({
                     'observation': {
