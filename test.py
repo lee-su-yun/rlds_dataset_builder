@@ -5,17 +5,17 @@ import matplotlib.pyplot as plt
 path = '/data/piper_grape0626/pick_the_grape_and_put_it_to_the_basket/1057/episode.pickle'
 data = np.load(path, allow_pickle=True)
 
-img100 = cv2.imdecode(data['observation.images.table'][100], cv2.IMREAD_COLOR)
-img150 = cv2.imdecode(data['observation.images.table'][150], cv2.IMREAD_COLOR)
-img200 = cv2.imdecode(data['observation.images.table'][200], cv2.IMREAD_COLOR)
-img250 = cv2.imdecode(data['observation.images.table'][250], cv2.IMREAD_COLOR)
-img300 = cv2.imdecode(data['observation.images.table'][300], cv2.IMREAD_COLOR)
+img100 = cv2.imdecode(data['observation.images.table'][10], cv2.IMREAD_COLOR)
+img150 = cv2.imdecode(data['observation.images.table'][50], cv2.IMREAD_COLOR)
+img200 = cv2.imdecode(data['observation.images.table'][100], cv2.IMREAD_COLOR)
+img250 = cv2.imdecode(data['observation.images.table'][150], cv2.IMREAD_COLOR)
+img300 = cv2.imdecode(data['observation.images.table'][200], cv2.IMREAD_COLOR)
 
-st100 = data['observation.state'][100]
-st150 = data['observation.state'][150]
-st200 = data['observation.state'][200]
-st250 = data['observation.state'][250]
-st300 = data['observation.state'][300]
+st100 = data['observation.state'][10]
+st150 = data['observation.state'][50]
+st200 = data['observation.state'][100]
+st250 = data['observation.state'][150]
+st300 = data['observation.state'][200]
 
 print(f'100 frame state : {st100}')
 print(f'150 frame state : {st150}')
