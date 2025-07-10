@@ -11,12 +11,17 @@ img200 = cv2.imdecode(data['observation.images.table'][200], cv2.IMREAD_COLOR)
 img250 = cv2.imdecode(data['observation.images.table'][250], cv2.IMREAD_COLOR)
 img300 = cv2.imdecode(data['observation.images.table'][300], cv2.IMREAD_COLOR)
 
+st100 = data['observation.state'][100]
+st150 = data['observation.state'][150]
+st200 = data['observation.state'][200]
+st250 = data['observation.state'][250]
+st300 = data['observation.state'][300]
 
-print(f'100 frame state : {data['observation.state'][100]}')
-print(f'150 frame state : {data['observation.state'][150]}')
-print(f'200 frame state : {data['observation.state'][200]}')
-print(f'250 frame state : {data['observation.state'][250]}')
-print(f'300 frame state : {data['observation.state'][300]}')
+print(f'100 frame state : {st100}')
+print(f'150 frame state : {st150}')
+print(f'200 frame state : {st200}')
+print(f'250 frame state : {st250}')
+print(f'300 frame state : {st300}')
 
 cv2.imwrite('100.png', img100)
 cv2.imwrite('150.png', img150)
